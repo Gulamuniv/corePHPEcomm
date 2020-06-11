@@ -1,11 +1,11 @@
-﻿<?php include 'inc/header.php';?>
+<?php include 'inc/header.php';?>
 <?php include 'inc/sidebar.php';?>
-<?php include '../classes/Category.php';?>
- <?php $cat  =new Category();
+<?php include '../classes/Brand.php';?>
+ <?php $brand  =new Brand();
 
-if (isset($_GET['delcat'])) {
-	$id =$_GET['delcat'];
-	$delCat  =$cat->delCatById($id);
+if (isset($_GET['delbrand'])) {
+	$id =$_GET['delbrand'];
+	$delBrand  =$brand->delBrandById($id);
 
 }
 
@@ -17,8 +17,8 @@ if (isset($_GET['delcat'])) {
                 <div class="block"> 
                <?php
 
-         if (isset($delCat)) {
-         	echo  $delCat;
+         if (isset($delBrand)) {
+         	echo  $delBrand;
          	
          }
           ?>
@@ -27,25 +27,25 @@ if (isset($_GET['delcat'])) {
 					<thead>
 						<tr>
 							<th>Serial No.</th>
-							<th>Category Name</th>
+							<th>Brand Name</th>
 							<th>Action</th>
 						</tr>
 					</thead>
 					<tbody>
 			<?php 
 				 $i =0;
-                  $getCat  = $cat->getAllCat(); 
-                        if ($getCat) {
-                        	while ($resul =$getCat->fetch_assoc()) {
+                  $getBrand  = $brand->getAllBrand(); 
+                        if ($getBrand) {
+                        	while ($result =$getBrand->fetch_assoc()) {
                         		$i++;
                       
 						?>
 						<tr class="odd gradeX">
 							<td><?php echo $i;?></td>
-							<td><?php echo $resul['catName']?></td>
-							<td><a href="catedit.php?catId=<?php echo 
-							$resul['catId']?>">Edit</a> ||
-							<a onclick="return confirm('Are you sure to delete')" href="?delcat=<?php echo $result['catId']; ?>">Delete</a></td>
+							<td><?php echo $result['brandName']?></td>
+							<td><a href="brandedit.php?brandId=<?php echo 
+							$result['brandId']?>">Edit</a> ||
+							<a onclick="return confirm('Are you sure to delete')" href="?delbrand=<?php echo $result['brandId']; ?>">Delete</a></td>
 						</tr>
 						<?php 
 
