@@ -6,7 +6,7 @@ include_once'../helper/Format.php';
   ?>
 
 <?php 
-df
+
 /**
  * Category Class
  */
@@ -28,6 +28,17 @@ class Category
      if (empty($catName)) {
     	 $msg = "Category Field must not be empty";
     	 return $msg;
+    	}else{
+    		$query  ="INSERT INTO tbl_category (catName) VALUES('$catName')";
+    		$insertCat =$this->db->insert($query);
+    		if ($insertCat) {
+    			$msg  ='<span class ="success"> Category Inserted SuccessFully</span>';
+    			return $msg;
+    		}else{
+                $msg  ='<span class ="error"> Category Not Inserted</span>'; 
+                return $msg;
+    		}
+
     	}
 	}
 }
