@@ -5,15 +5,25 @@
 <?php include '../classes/Category.php';?>
 
 <?php 
-
-
+$pd =new Product();
+if ($_SERVER['REQUEST_METHOD'] == 'POST'&& isset($_POST['submit'])) {
+        $insertProduct = $pd->productInsert($_POST, $_FILES);
+    }
+?>
 ?>
 
 
 <div class="grid_10">
     <div class="box round first grid">
         <h2>Add New Product</h2>
-        <div class="block">               
+        <div class="block">   
+   <?php 
+  if (isset($insertProduct)) {
+     echo "$insertProduct";
+  }
+ 
+   ?>
+
          <form action="" method="post" enctype="multipart/form-data">
             <table class="form">
                
@@ -105,7 +115,7 @@
                         <label>Product Type</label>
                     </td>
                     <td>
-                        <select id="select" name="select">
+                        <select id="select" name="type">
                             <option>Select Type</option>
                             <option value="1">Featured</option>
                             <option value="0">Non-Featured</option>
