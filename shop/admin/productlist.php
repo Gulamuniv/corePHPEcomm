@@ -1,7 +1,17 @@
 ﻿<?php include 'inc/header.php';?>
 <?php include 'inc/sidebar.php';?>
 <?php include '../classes/Product.php';?>
+<?php include_once'../helper/Format.php';?>
+<?php 
 
+  $pd  =new Product();
+  $fm  =new Format();
+  if (isset($_GET['delpro'])) {
+	$id =$_GET['delpro'];
+	$delPro  =$pd->delProById($id);
+
+}
+?>
 <div class="grid_10">
     <div class="box round first grid">
         <h2>Post List</h2>
@@ -9,31 +19,53 @@
             <table class="data display datatable" id="example">
 			<thead>
 				<tr>
-					<th>Sr no</th>
+					<th>Post Title</th>
+					<th>Product Name</th>
 					<th>Category</th>
 					<th>Brand</th>
-					<th>Post Title</th>
 					<th>Description</th>
-					<th>Category</th>
+					<th>Price</th>
 					<th>Image</th>
 					<th>Type</th>
 					<th>Action</th>
 				</tr>
 			</thead>
 			<tbody>
-				<?php ?>
+				<?php 
+                 $getPd =$pd->getAllProduct();
+                 $sr =1;
+                   if ($getPd) {
+                   	while ($result =$getPd->fetch_assoc() ) {
+                   	
+                   
+				?>
 				<tr class="odd gradeX">
-					<td>Sr</td>
-					<td>Internet Explorer 4.0</td>
-					<td>Win 95+</td>
-					<td>Win 95+</td>
-					<td>Win 95+</td>
-					<td>Win 95+</td>
-					<td>Win 95+</td>
-					<td>Win 95+</td>
+					<td><?php echo $sr;?></td>
+					<td><?php echo$fm->textShorten($result['productName'],15);?></td>
+					<td><?php echo $result['catName'];?></td>
+					<td><?php echo $result['brandName'];?></td>
+					<td><?php echo$fm->textShorten($result['body'], 30);?></td>
+					<td><?php echo $result['price'];?></td>
+					<td><img src="<?php echo $result['image'];?>" style="width: 40px; height: 60px;"></td>
+					<td><?php 
+
+					if ($result['type'] == 0) {
+						echo "Featured";
+					}else {
+						echo "General";
+					}
+
+					?></td>
 					
-					<td><a href="">Edit</a> || <a href="">Delete</a></td>
+					<td><a href="productedit.php?proId=<?php echo 
+							$result['productId']?>">Edit</a> ||
+							<a onclick="return confirm('Are you sure to delete')" href="?delpro=<?php echo $result['productId']; ?>">Delete</a></td>
 				</tr>
+				<?php 
+				$sr++;
+              	}
+                   }
+				?>
 			</tbody>
 		</table>
 
