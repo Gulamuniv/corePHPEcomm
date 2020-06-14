@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'&& isset($_POST['submit'])) {
         $insertProduct = $pd->productInsert($_POST, $_FILES);
     }
 ?>
-?>
+
 
 
 <div class="grid_10">

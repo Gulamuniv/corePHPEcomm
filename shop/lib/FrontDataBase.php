@@ -1,7 +1,10 @@
+
 <?php 
-$filepath = realpath(dirname(__FILE__));
-include_once ($filepath.'/../config/config.php');?>
-<?php 
+define ("DB_HOST", "localhost");
+define ("DB_USER", "root");
+define ("DB_PASS", "");
+define ("DB_NAME", "db_store");
+
 
 class Database {
 
@@ -28,7 +31,7 @@ public $dbname = DB_NAME;
  }
 
     // Select or Rread Data From Database 
-     public function select($query){
+     public function select ($query){
      	 $result = $this->link->query($query) or die ($this->link->error.__LINE__);
      	 if ($result->num_rows > 0) {
      	 	return $result;
