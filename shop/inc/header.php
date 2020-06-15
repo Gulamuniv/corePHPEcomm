@@ -59,13 +59,37 @@
 			    </div>
 			    <div class="shopping_cart">
 					<div class="cart">
-						<a href="#" title="View my shopping cart" rel="nofollow">
+						<a href="cart.php" title="View my shopping cart" rel="nofollow">
 								<span class="cart_title">Cart</span>
-								<span class="no_product">(empty)</span>
+								<span class="no_product">
+                                <?php 
+                               $getData = $ct->checkCartTable(); 
+                               if ($getData) {
+                               	 $sum =Session::get("sum");
+                               	 $qty  =Session::get("qty");
+                                echo "$".$sum." Qty ".$qty;
+                               }else{
+                               	echo "(Empty)";
+                               }
+                                ?>
+
+								</span>
 							</a>
 						</div>
 			      </div>
-		   <div class="login"><a href="login.php">Login</a></div>
+		   <div class="login">
+            <?php 
+			  $login =  Session::get("cuslogin");
+			  if ($login == false) { ?>
+			  <a href="login.php">Login</a>
+			
+				<?php   }else { ?>
+	            <a href="">Logout</a>
+	            
+
+		  <?php } ?>
+
+		   </a></div>
 		 <div class="clear"></div>
 	 </div>
 	 <div class="clear"></div>

@@ -19,6 +19,11 @@
     }   
 
 ?>
+<?php
+if (!isset($_GET['id'])) {
+	echo "<meta http-equiv='refresh' content='0;URL=?id=live'/>";
+}
+?>
  <div class="main">
     <div class="content">
     	<div class="cartoption">		
@@ -74,12 +79,21 @@
 				</td>
 					<td><a onclick="return confirm('Are you sure to Delete');" href="?delpro=<?php echo $result['cartId']; ?>">X</a></td>
 			</tr>
-					<?php $sum = $sum + $total;?>		
+					<?php 
+					       $sum = $sum + $total;
+					      $qty = $qty +  $result['quantity'];
+					       Session::set("qty", $qty);
+                           Session::set("sum", $sum);
+
+					?>		
 				<?php }}?>
 
                        
 							</table>
-
+                  <?php 
+           $getData = $ct->checkCartTable(); 
+                               if ($getData) {
+                  ?>
                            
 
 						<table style="float:right;text-align:left;" width="40%">
@@ -99,6 +113,11 @@
 							</tr>
 						
 					   </table>
+					   <?php 
+
+					}else{
+						 header("Location:index.php");
+					}?>
 					</div>
 					<div class="shopping">
 						<div class="shopleft">

@@ -76,11 +76,19 @@ public function delProductByCart($delId)
 	 $query = "DELETE FROM tbl_cart WHERE cartId ='$delId'";
 	 $deldata = $this->db->delete($query);
 	 if ($deldata) {
-	 		echo "<script>window.location = 'cart.php';</script> ";
+	 		echo "<script>window.location = 'cart.php';</script>";
 	 }else{
-	 	$msg = "<span class='error'>Product Not Deleted .</span> ";
+	 	$msg = "<span class='error'>Product Not Deleted .</span>";
 	 	return $msg;
 	 }
+}
+
+public function checkCartTable()
+{
+   $sId = session_id();
+  $query = "SELECT * FROM tbl_cart WHERE sId ='$sId'";
+ 	$result = $this->db->select($query);
+ 	return $result;
 }
 }
 ?>

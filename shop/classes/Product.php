@@ -215,6 +215,43 @@ public function getSingleProduct($id)
     return $result;
 }
 
+public function latestFromAcer()
+{
+  $query = "SELECT * FROM tbl_product WHERE brandId ='3' ORDER BY productId DESC LIMIT 1 ";
+         $result = $this->db->select($query);
+         return $result;
+}
+ public function latestFromZara(){
+  $query = "SELECT * FROM tbl_product WHERE brandId ='4' ORDER BY productId DESC LIMIT 1 ";
+         $result = $this->db->select($query);
+         return $result;
+ }
+  public function latestFromPolo(){
+  $query = "SELECT * FROM tbl_product WHERE brandId ='5' ORDER BY productId DESC LIMIT 1 ";
+         $result = $this->db->select($query);
+         return $result;
+ }
+  public function latestFromSamsung(){
+  $query = "SELECT * FROM tbl_product WHERE brandId ='2' ORDER BY productId DESC LIMIT 1 ";
+         $result = $this->db->select($query);
+         return $result;
+ }
+
+ public function productByCat($id)
+ {
+   $catId  =  mysqli_real_escape_string($this->db->link, $id);
+   $query = "SELECT * FROM tbl_product WHERE catId ='$catId'";
+         $result = $this->db->select($query);
+         return $result;
+ }
+
+public function productOnlyByCat($id)
+{
+ $query = "SELECT * FROM tbl_category WHERE catId ='$id'";
+         $result = $this->db->select($query);
+         return $result;
+}
+
 
 }
 

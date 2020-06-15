@@ -65,6 +65,9 @@ body{
 	outline:none;
 	margin:0;
 }
+.success{font-size: 18px; color: green}
+.error{font-size: 18px; color: red}
+
 .search_box input[type="submit"]{
 	border:none;
 	cursor:pointer;
