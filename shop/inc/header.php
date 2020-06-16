@@ -77,14 +77,20 @@
 							</a>
 						</div>
 			      </div>
+			      <?php 
+                  if (isset($_GET['cid'])) {
+                  	$delDate = $ct->delCustomerCart();
+                  	Session::destroy();
+                  }
+			      ?>
 		   <div class="login">
             <?php 
 			  $login =  Session::get("cuslogin");
 			  if ($login == false) { ?>
 			  <a href="login.php">Login</a>
 			
-				<?php   }else { ?>
-	            <a href="">Logout</a>
+				<?php }else { ?>
+	            <a  href="?cid=<?php Session::get('cmrId')?>">Logout</a>
 	            
 
 		  <?php } ?>
@@ -99,7 +105,17 @@
 	  <li><a href="index.php">Home</a></li>
 	  <li><a href="products.php">Products</a> </li>
 	  <li><a href="topbrands.php">Top Brands</a></li>
+	  <?php $chkCart = $ct->checkCartTable();
+     if ($chkCart) {?>
 	  <li><a href="cart.php">Cart</a></li>
+	  <li><a href="payment.php">Payment</a></li>
+	  <?php }?>
+
+	  <?php  $login =  Session::get("cuslogin");
+	  if($login == true){
+	  	?>
+	  <li><a href="profile.php">Profile</a></li>
+	<?php }?>
 	  <li><a href="contact.php">Contact</a> </li>
 	  <div class="clear"></div>
 	</ul>
