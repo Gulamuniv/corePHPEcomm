@@ -53,8 +53,8 @@
 			</div>
 			  <div class="header_top_right">
 			    <div class="search_box">
-				    <form>
-				    	<input type="text" value="Search for Products" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search for Products';}"><input type="submit" value="SEARCH">
+				    <form action="search.php">
+				    	<input type="text" name="search" placeholder="Search for Products"><input type="submit" value="SEARCH">
 				    </form>
 			    </div>
 			    <div class="shopping_cart">
@@ -79,7 +79,9 @@
 			      </div>
 			      <?php 
                   if (isset($_GET['cid'])) {
+                  	$cmrId = Session::get('cmrId');
                   	$delDate = $ct->delCustomerCart();
+                  	$delComp = $pd->delCompareData($cmrId);
                   	Session::destroy();
                   }
 			      ?>
@@ -103,12 +105,23 @@
 <div class="menu">
 	<ul id="dc_mega-menu-orange" class="dc_mm-orange">
 	  <li><a href="index.php">Home</a></li>
-	  <li><a href="products.php">Products</a> </li>
+	  
 	  <li><a href="topbrands.php">Top Brands</a></li>
+
 	  <?php $chkCart = $ct->checkCartTable();
      if ($chkCart) {?>
-	  <li><a href="cart.php">Cart</a></li>
+     	<li><a href="cart.php">Cart</a></li>
 	  <li><a href="payment.php">Payment</a></li>
+	 
+	  
+	  <?php }?>
+
+
+	  <?php 
+      $cmrId = Session::get('cmrId');
+	  $chkOrder = $ct->checkOrderTable($cmrId);
+     if ($chkOrder) {?>
+	    <li><a href="order.php">Order</a></li>
 	  <?php }?>
 
 	  <?php  $login =  Session::get("cuslogin");
@@ -116,6 +129,21 @@
 	  	?>
 	  <li><a href="profile.php">Profile</a></li>
 	<?php }?>
+
+	 <?php 
+     $cmrId = Session::get('cmrId');
+     $getPd = $pd->getCompareProduct($cmrId);
+     if ($getPd) {?>
+     	<li><a href="compare.php">Compare</a> </li>
+    <?php }?>
+  <?php 
+     
+     $checkwlist = $pd->checkWlistData($cmrId);
+     if ($checkwlist) {?>
+     	<li><a href="wishlist.php">WishList</a> </li>
+    <?php }?>
+
+
 	  <li><a href="contact.php">Contact</a> </li>
 	  <div class="clear"></div>
 	</ul>

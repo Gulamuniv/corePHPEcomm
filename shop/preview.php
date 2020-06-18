@@ -8,14 +8,34 @@ if (!isset($_GET['proid'])||$_GET['proid']==NULL) {
    $id =$_GET['proid'];
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST'&& isset($_POST['submit'])) {
         $quantity = $_POST['quantity'];
        
 
         $addCart = $ct->addToCart($quantity, $id);
     }
 ?>
+<?php 
+   $cmrId  =Session::get("cmrId");
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['campare'])) {
+        $productId = $_POST['productId'];     
+        $insertCom = $pd->inserCompareDate($productId, $cmrId);
+    }
 
+?>
+
+<?php 
+$cmrId  =Session::get("cmrId");
+  if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['wlist'])) {
+            
+        $saveWlist = $pd->saveWishListData($id, $cmrId);
+    }
+
+?>
+
+<style type="text/css">
+	.mybutton{width: 100px;float: left;margin-right: 40px;}	
+</style>
 
  <div class="main">
     <div class="content">
@@ -51,8 +71,33 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 if (isset($addCart)) {
                 echo $addCart;
                 }
+                if (isset($insertCom)) {
+                	echo($insertCom);
+                }
+                  if (isset($saveWlist)) {
+                	echo($saveWlist);
+                }
 				?>
 				</span>
+
+		<?php  $login =  Session::get("cuslogin");
+	  		if($login == true){?>
+
+				<div class="add-cart">
+				 <div class="mybutton">  
+				 <form action=" " method="post">
+						<input type="hidden" class="buyfield" name="productId" value="<?php echo $result['productId']; ?>"/>
+						<input type="submit" class="buysubmit" name="campare" value="Add to Campare"/>
+					</form>	
+                   </div>
+                 <div class="mybutton"> 
+ 				<form action=" " method="post">
+				<input type="submit" class="buysubmit" name="wlist" value="Wish List"/>
+					</form>
+
+					</div>
+				</div>
+			<?php }?>
 			</div>
 			<div class="product-desc">
 			<h2>Product Details</h2>

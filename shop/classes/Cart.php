@@ -101,6 +101,8 @@ public function delCustomerCart()
 public function orderProduct($cmrId)
 {
    $sId = session_id();
+   $CurrentTime=time();
+  $DateTime = strftime("%B-%d-%Y",$CurrentTime);
    $query = "SELECT * FROM tbl_cart WHERE sId ='$sId' ";
    $getPro = $this->db->select($query);
    if ($getPro) {
@@ -110,7 +112,7 @@ public function orderProduct($cmrId)
 			     $quantity      = $result['quantity'];
 			     $price         = $result['price'];
 			     $image         = $result['image'];
-$query  = "INSERT INTO tbl_order(cmrId, productId, productName, quantity, price, image)VALUES('$cmrId','$productId','$productName','$quantity','$price','$image')";
+$query  = "INSERT INTO tbl_order(cmrId, productId, productName, quantity, price, image,date)VALUES('$cmrId','$productId','$productName','$quantity','$price','$image','$DateTime')";
 $inserted_row = $this->db->insert($query);
    		}
    	}	
@@ -121,6 +123,56 @@ public function getOrderProduct($cmrId)
 	 $query = "SELECT * FROM tbl_order WHERE cmrId ='$cmrId' ORDER BY productId DESC ";
   $result = $this->db->select($query);
   return $result;
+}
+
+public function checkOrderTable($cmrId)
+{
+  $query = "SELECT * FROM tbl_order WHERE cmrId ='$cmrId'";
+  $result = $this->db->select($query);
+  return $result;
+}
+
+
+public function getAllOrderProduct()
+{
+ $query = "SELECT * FROM tbl_order ORDER BY date";
+  $result = $this->db->select($query);
+  return $result;
+}
+
+public function productShifted($id,$date,$price)
+{
+  $id =  mysqli_real_escape_string($this->db->link, $id ); 
+  $date =  mysqli_real_escape_string($this->db->link, $date ); 
+  $price =  mysqli_real_escape_string($this->db->link, $price ); 
+  $query = "UPDATE tbl_order
+                SET
+                status = '1'
+                WHERE cmrId = '$id' AND date='$date' AND price='$price'";
+                $update_row  = $this->db->update($query);
+                if ($update_row) {
+                   $msg = "<span class='success' tyle='font-size: 18px; color: green'>Updated Successfully.</span> ";
+              return $msg;
+                }else {
+                  $msg = "<span tyle='font-size: 18px; color: red'>Not Updated .</span> ";
+              return $msg;
+                } 
+}
+
+public function delproductShifted($id,$time,$price)
+{
+  $id =  mysqli_real_escape_string($this->db->link, $id ); 
+  $date =  mysqli_real_escape_string($this->db->link, $time ); 
+  $price =  mysqli_real_escape_string($this->db->link, $price );
+  $query = "DELETE FROM tbl_order WHERE cmrId = '$id' AND date='$date' AND price='$price'";
+        $deldata = $this->db->delete($query);
+        if ($deldata) {
+          $msg = "<span tyle='font-size: 18px; color: green;'>Data Deleted Successfully.</span> ";
+        return $msg;
+        }else {
+          $msg = "<span tyle='font-size: 18px; color: red;'>Data Not Deleted .</span> ";
+             return $msg;
+          } 
 }
 
 }

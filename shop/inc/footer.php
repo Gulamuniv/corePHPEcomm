@@ -37,20 +37,36 @@
 							<li><span>support@gulam.com</span></li>
 							<li><span>www.gulam.com</span></li>
 						</ul>
-						<div class="social-icons">
-							<h4>Follow Us</h4>
-					   		  <ul>
-							      <li class="facebook"><a href="#" target="_blank"> </a></li>
-							      <li class="twitter"><a href="#" target="_blank"> </a></li>
-							      <li class="googleplus"><a href="#" target="_blank"> </a></li>
-							      <li class="contact"><a href="#" target="_blank"> </a></li>
-							      <div class="clear"></div>
-						     </ul>
-   	 					</div>
+		<div class="social-icons">
+			<h4>Follow Us</h4>
+	   		  <ul>
+	   	<?php $brand =  new Brand();
+        $getsocial = $brand->getSocialById();
+        if ($getsocial) {
+           while ($result = $getsocial->fetch_assoc()) {
+           
+     ?> 
+			      <li class="facebook"><a href="<?php echo $result['facebook'];?>" target="_blank"> </a></li>
+			      <li class="twitter"><a href="<?php echo $result['twitter'];?>" target="_blank"> </a></li>
+			      <li class="googleplus"><a href="<?php echo $result['linkedin'];?>" target="_blank"> </a></li>
+			      <li class="contact"><a href="<?php echo $result['googleplus'];?>" target="_blank"> </a></li>
+			      <?php }}?>
+			      <div class="clear"></div>
+			  
+		     </ul>
+				</div>
 				</div>
 			</div>
 			<div class="copy_right">
-				<p>easy Learning project &amp; All rights Reseverd </p>
+		<?php 
+        $brand =  new Brand();
+        $getcopy = $brand->getcopyById();
+        if ($getcopy) {
+           while ($result = $getcopy->fetch_assoc()) {
+           
+     ?> 
+				<p><?php echo $result['copyright'];?>&amp; All rights Reseverd </p>
+			<?php }}?>
 		   </div>
      </div>
     </div>

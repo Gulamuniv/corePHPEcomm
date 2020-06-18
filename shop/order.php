@@ -41,16 +41,14 @@
 								<td><?php echo $result['productName'];  ?></td>
 								<td><img src="admin/<?php echo $result['image']; ?>" alt=""/></td>
 								<td> <?php echo $result['quantity'];  ?></td>
-								<td>
-		
-		</td>
+								
 
-				<td>$<?php 
+	          <td>$<?php 
 				$total = $result['price'] * $result['quantity'];
 				echo $total;
 				?>
-					
-				</td>
+			  </td>
+               <td><?php echo $result['date'];?></td>
 				<td><?php 
              if ($result['status'] =='0') {
              	echo "pending";
